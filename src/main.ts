@@ -40,7 +40,7 @@ const carImport: Car = {
   number: "PL3676XC",
 };
 
-carImport.VIN = "asdadadadsa";
+// carImport.VIN = "asdadadadsa";
 carImport.color = "blue";
 
 interface User {
@@ -62,3 +62,63 @@ let status: Status = "pending";
 status = "pending";
 
 status = "rejected";
+
+/// ARR
+
+const arr: number[] = [1, 2, 3];
+
+// const arr1: Array<number> = [1, 2, 3];
+
+const person: (string | number)[] = ["Alona", 35];
+
+type Arr = string | number | boolean | null;
+
+const arr1: Arr[] = ["Alex", true, 24, null];
+
+///
+
+interface User2 {
+  name: string;
+  age: number;
+}
+
+interface Dog {
+  color: string;
+  breed: string;
+}
+
+type ObjArr = User2 | Dog;
+
+const arr2: ObjArr[] = [
+  { name: "Ivan", age: 21 },
+  { color: "black", breed: "buldog" },
+];
+
+/// interface + interface
+
+interface Animal {
+  name: string;
+  color: string;
+}
+
+interface Animal {
+  breed: string;
+}
+
+const anilmal: Animal = {
+  name: "Dog",
+  color: "black",
+  breed: "shepard",
+};
+
+// extends
+interface AnimalMax extends Animal {
+  size: string;
+}
+
+const animal2: AnimalMax = {
+  name: "Dog",
+  color: "black",
+  breed: "shepard",
+  size: "M",
+};
