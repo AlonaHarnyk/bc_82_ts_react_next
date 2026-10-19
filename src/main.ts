@@ -8,7 +8,7 @@ let c: boolean = true;
 let age: any;
 
 age = 15;
-age.toLowerCase();
+// age.toLowerCase();
 
 let name: unknown;
 name = 15;
@@ -122,3 +122,90 @@ const animal2: AnimalMax = {
   breed: "shepard",
   size: "M",
 };
+
+/// Functions
+
+//* 1. Просте додавання чисел
+// Умова:
+// Напиши функцію add, яка приймає два числа та повертає їх суму.
+
+function add(a: number, b: number): number {
+  return a + b;
+}
+
+add(2, 3);
+
+//* 2. Привітання користувача
+
+// Умова:
+// Функція greetUser приймає ім’я (string) і логічне значення isMorning (boolean).
+// Повертає рядок "Good morning, {name}" якщо isMorning === true, і "Hello, {name}" якщо false.
+
+function greetUser(name: string, isMorning: boolean): string {
+  return isMorning ? `Good morning, ${name}` : `Hello ${name}`;
+}
+
+greetUser("Alex", true);
+
+//* 3. Перевірка числа
+
+// Умова:
+// Функція isPositive приймає будь-яке значення (unknown) і повертає boolean:
+
+// true якщо це число > 0,
+
+// false якщо число ≤ 0 або не число.
+
+function isPositive(value: unknown): boolean {
+  if (typeof value !== "number") {
+    return false;
+  }
+  return value > 0;
+}
+
+isPositive(0);
+isPositive("Alex");
+
+//
+//* 4. Об’єкт користувача
+
+// Умова:
+// Створи інтерфейс User з полями:
+
+// name: string
+
+// age: number
+
+// email?: string (optional)
+
+//  Функція getUserSummary приймає об’єкт User та повертає рядок "Name: {name}, Age: {age}, Email: {email}".
+//  Якщо email немає — виводимо "Name: {name}, Age: {age},  Email: N/A".
+
+interface User3 {
+  name: string;
+  age: number;
+  email?: string;
+}
+
+function getUserSummary({ name, age, email }: User3): string {
+  // if (email !== undefined) {
+  //   return `Name: ${name}, Age: ${age}, Email: ${email}`;
+  // }
+  const emailPart = email !== undefined ? email : "N/A";
+  return `Name: ${name}, Age: ${age}, Email: ${emailPart}`;
+}
+
+console.log(
+  getUserSummary({
+    name: "Alex",
+    age: 24,
+    email: "alex@gmail.com",
+  }),
+);
+
+console.log(
+  getUserSummary({
+    name: "Alex",
+    age: 24,
+  }),
+);
