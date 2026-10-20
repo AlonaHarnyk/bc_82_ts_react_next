@@ -1,23 +1,23 @@
-enum Role {
-  Admin = 'admin',
-  Student = 'student',
-  Teacher = 'teacher',
-}
+// enum Role {
+//   Admin = 'admin',
+//   Student = 'student',
+//   Teacher = 'teacher',
+// }
 
-function handleGreetMessage(role: Role, name: string): string {
-  switch (role) {
-    case Role.Admin:
-      return `Hello Admin ${name}`;
+// function handleGreetMessage(role: Role, name: string): string {
+//   switch (role) {
+//     case Role.Admin:
+//       return `Hello Admin ${name}`;
 
-    case Role.Student:
-      return `Hello student ${name}`;
+//     case Role.Student:
+//       return `Hello student ${name}`;
 
-    case Role.Teacher:
-      return `Hello teacher ${name}`;
-  }
-}
+//     case Role.Teacher:
+//       return `Hello teacher ${name}`;
+//   }
+// }
 
-console.log(handleGreetMessage(Role.Student, 'Matfey'));
+// console.log(handleGreetMessage(Role.Student, 'Matfey'));
 
 // Задача 1. Узагальнена функція wrapInArray
 // Умова
@@ -114,33 +114,93 @@ console.log(handleGreetMessage(Role.Student, 'Matfey'));
 
 // Приклад використання:
 
-interface User {
-  name: string;
-  age: number;
+// interface User {
+//   name: string;
+//   age: number;
+// }
+
+// const users: User[] = [
+//   { name: 'Ivan', age: 25 },
+//   { name: 'Anna', age: 30 },
+//   { name: 'Oleg', age: 20 },
+// ];
+
+// function maxBy<T>(arr: T[], selector: (item: T) => number): T {
+//   return arr.reduce((max, item) =>
+//     selector(item) > selector(max) ? item : max
+//   );
+// }
+
+// const oldest = maxBy<User>(users, user => user.age); // { name: "Anna", age: 30 }
+// console.log(oldest);
+
+// interface Product {
+//   name: string;
+//   price: number;
+// }
+
+// const products: Product[] = [
+//   { name: 'Laptop', price: 1000 },
+//   { name: 'Phone', price: 800 },
+// ];
+// console.log(maxBy<Product>(products, p => p.price));
+
+// interface Responce<T> {
+//   status: number;
+//   message: string;
+//   data: T;
+// }
+
+// interface User {
+//   name: string;
+// }
+
+// // interface UsersResponce {
+// //   status: number;
+// //   message: string;
+// //   data: User[];
+// // }
+
+// const usersResponce: Responce<User[]> = {
+//   status: 200,
+//   message: 'success',
+//   data: [
+//     {
+//       name: 'Leon',
+//     },
+//     {
+//       name: 'Kate',
+//     },
+//   ],
+// };
+
+// // interface UserResponce {
+// //   status: number;
+// //   message: string;
+// //   data: User;
+// // }
+
+// const userResponce: Responce<User> = {
+//   status: 200,
+//   message: 'success',
+//   data: {
+//     name: 'Selestian',
+//   },
+// };
+
+// Задача 7. Узагальнена функція delay з Promise
+// Умова
+
+// Створи функцію delay, яка:
+// приймає значення будь-якого типу
+// приймає час у мілісекундах
+// повертає Promise, який після затримки повертає передане значення
+// зроби функцію узагальненою
+
+function delay<T>(value: T, time: number): Promise<T> {
+  return new Promise(resolve => {
+    setTimeout(() => resolve(value), time);
+  });
 }
 
-const users: User[] = [
-  { name: 'Ivan', age: 25 },
-  { name: 'Anna', age: 30 },
-  { name: 'Oleg', age: 20 },
-];
-
-function maxBy<T>(arr: T[], selector: (item: T) => number): T {
-  return arr.reduce((max, item) =>
-    selector(item) > selector(max) ? item : max
-  );
-}
-
-const oldest = maxBy<User>(users, user => user.age); // { name: "Anna", age: 30 }
-console.log(oldest);
-
-interface Product {
-  name: string;
-  price: number;
-}
-
-const products: Product[] = [
-  { name: 'Laptop', price: 1000 },
-  { name: 'Phone', price: 800 },
-];
-console.log(maxBy<Product>(products, p => p.price));
+delay('Hello1', 2000).then(res => console.log(res));
