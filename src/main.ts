@@ -1,7 +1,7 @@
 enum Role {
-  Admin = "admin",
-  Student = "student",
-  Teacher = "teacher",
+  Admin = 'admin',
+  Student = 'student',
+  Teacher = 'teacher',
 }
 
 function handleGreetMessage(role: Role, name: string): string {
@@ -17,7 +17,7 @@ function handleGreetMessage(role: Role, name: string): string {
   }
 }
 
-console.log(handleGreetMessage(Role.Student, "Matfey"));
+console.log(handleGreetMessage(Role.Student, 'Matfey'));
 
 // Задача 1. Узагальнена функція wrapInArray
 // Умова
@@ -78,3 +78,69 @@ console.log(handleGreetMessage(Role.Student, "Matfey"));
 // }
 
 // pair1<number, string>(10, "test");
+
+// Задача 4. Узагальнена функція firstOrDefault
+// Умова
+
+// Створи функцію firstOrDefault, яка:
+
+// приймає масив будь-якого типу
+
+// повертає перший елемент масиву або null, якщо масив порожній
+
+// зроби функцію узагальненою
+
+// function firstOrDefault<T>(arr: T[]): T | null {
+//   // solution 1
+//   // if (arr.length === 0) {
+//   //   return null;
+//   // }
+//   // return arr[0];
+//   // solution 2
+//   return arr[0] ?? null;
+// }
+// console.log(firstOrDefault<number>([]));
+
+// console.log(firstOrDefault<number>([6, 3, 4]));
+
+// Задача 5. Узагальнена функція maxBy
+// Умова
+
+// Створи функцію maxBy, яка:
+// приймає масив об’єктів будь-якого типу
+// приймає функцію selector, яка з об’єкта повертає число
+// повертає об’єкт, для якого selector дає найбільше число
+// Зроби функцію узагальненою.
+
+// Приклад використання:
+
+interface User {
+  name: string;
+  age: number;
+}
+
+const users: User[] = [
+  { name: 'Ivan', age: 25 },
+  { name: 'Anna', age: 30 },
+  { name: 'Oleg', age: 20 },
+];
+
+function maxBy<T>(arr: T[], selector: (item: T) => number): T {
+  return arr.reduce((max, item) =>
+    selector(item) > selector(max) ? item : max
+  );
+}
+
+const oldest = maxBy<User>(users, user => user.age); // { name: "Anna", age: 30 }
+console.log(oldest);
+
+interface Product {
+  name: string;
+  price: number;
+}
+
+const products: Product[] = [
+  { name: 'Laptop', price: 1000 },
+  { name: 'Phone', price: 800 },
+];
+console.log(maxBy<Product>(products, p => p.price));
