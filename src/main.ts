@@ -1,64 +1,80 @@
-let a: string = "hello";
-let b: number = 15;
-let c: boolean = true;
-
-// let x: null = null;
-// let y: undefined = undefined;
-
-let age: any;
-
-age = 15;
-age.toLowerCase();
-
-let name: unknown;
-name = 15;
-
-if (typeof name === "string") {
-  name.toLowerCase();
+enum Role {
+  Admin = "admin",
+  Student = "student",
+  Teacher = "teacher",
 }
 
-interface Car {
-  readonly VIN: string;
-  engine: string;
-  color: string;
-  weight?: number;
-  number: string;
+function handleGreetMessage(role: Role, name: string): string {
+  switch (role) {
+    case Role.Admin:
+      return `Hello Admin ${name}`;
+
+    case Role.Student:
+      return `Hello student ${name}`;
+
+    case Role.Teacher:
+      return `Hello teacher ${name}`;
+  }
 }
 
-const car: Car = {
-  VIN: "EH3432h342jJ32kk",
-  engine: "v8",
-  color: "red",
-  weight: 2000,
-  number: "AX8472AA",
-};
+console.log(handleGreetMessage(Role.Student, "Matfey"));
 
-const carImport: Car = {
-  VIN: "EH3432h3das21jJd22kk",
-  engine: "v12",
-  color: "green",
-  number: "PL3676XC",
-};
+// Задача 1. Узагальнена функція wrapInArray
+// Умова
 
-carImport.VIN = "asdadadadsa";
-carImport.color = "blue";
+// Є функція:
 
-interface User {
-  name: string;
-  email: string;
-}
+// Зараз вона не типізована.
 
-let user: null | User = null;
+// Завдання
 
-user = {
-  name: "Matfey",
-  email: "mmmmm@gmail.com",
-};
+// Зроби функцію узагальненою.
+// function wrapInArray<T>(value: T): T[] {
+//   return [value];
+// }
 
-type Status = "pending" | "rejected" | "fullfield";
+// console.log(wrapInArray<number>(10));
+// console.log(wrapInArray<string>("hello"));
 
-let status: Status = "pending";
+// Задача 2. Узагальнена функція getLastElement
+// Умова
 
-status = "pending";
+// Створи функцію getLastElement, яка:
 
-status = "rejected";
+// приймає масив будь-якого типу
+
+// повертає останній елемент масиву
+
+// Зроби функцію узагальненою.
+
+// function getLastElement<T>(arr: T[]): T {
+//   return arr[arr.length - 1];
+// }
+
+// console.log(getLastElement<number>([1, 2, 3, 4, 5]));
+
+// Задача 3. Узагальнена функція pair
+// Умова
+
+// Створи функцію pair, яка:
+
+// приймає два значення, які можуть бути різного типу
+
+// повертає їх як масив або кортеж [перший, другий]
+
+// Зроби функцію узагальненою
+
+// function pair1<T, X>(first: T, second: X): (T | X)[] {
+//   // return [first, second];
+
+//   return [second, first];
+// }
+
+// pair1<number, string>(10, "test");
+
+// function pair2<T, X>(first: T, second: X): [T, X] {
+//   // return [first, second];
+//   return [first, second];
+// }
+
+// pair1<number, string>(10, "test");
