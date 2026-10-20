@@ -197,10 +197,80 @@
 // повертає Promise, який після затримки повертає передане значення
 // зроби функцію узагальненою
 
-function delay<T>(value: T, time: number): Promise<T> {
-  return new Promise(resolve => {
-    setTimeout(() => resolve(value), time);
-  });
+// function delay<T>(value: T, time: number): Promise<T> {
+//   return new Promise(resolve => {
+//     setTimeout(() => resolve(value), time);
+//   });
+// }
+
+// delay('Hello1', 2000).then(res => console.log(res));
+
+// Задача 8. Узагальнена функція fetchData з Axios
+// Умова
+
+// Створи функцію fetchData, яка:
+// приймає URL
+// робить GET-запит через axios
+// повертає масив об’єктів певного типу, який визначається узагальненням
+
+// interface User{
+//   name: "Anton";
+// }
+
+// async function fetchData<T>(url: string): Promise<T[]> {
+//   const res = await axios.get<T[]>(url);
+//   return res.data;
+// }
+
+// fetchData<User>('site.com/users').then(data => console.log(data));
+
+// Задача 9. Узагальнена функція zip
+// Умова
+// Створи функцію zip, яка:
+
+// приймає два масиви різного типу
+// повертає масив кортежів
+
+// якщо масиви різної довжини, ігнорує зайві елементи
+// зроби функцію узагальненою
+
+// const numbers = [1, 2, 3];
+// const strings = ["a", "b"];
+// // const zipped = zip(numbers, strings); // [[1,"a"], [2,"b"]]
+
+// function zip<T, D>(arr1: T[], arr2: D[]): [T, D][] {
+//   const length = Math.min(arr1.length, arr2.length);
+//   const result: [T, D][] = [];
+//   for (let i = 0; i < length; i += 1) {
+//     result.push([arr1[i], arr2[i]]);
+//   }
+
+//   return result;
+// }
+
+// console.log(zip<number, string>(numbers, strings));
+
+//! Задача 10. Узагальнені функції saveToStorage і loadFromStorage
+// Умова
+// Створи дві функції:
+// 1) saveToStorage
+// приймає ключ
+// приймає значення будь-якого типу
+// зберігає його у localStorage у форматі JSON
+// 2) loadFromStorage
+// приймає ключ
+// повертає значення
+// Зроби обидві функції узагальненими.
+
+function saveToStorage<T>(key: string, value: T): void {
+  localStorage.setItem(key, JSON.stringify(value));
 }
 
-delay('Hello1', 2000).then(res => console.log(res));
+function loadFromStorage<T>(key: string): T | null {
+  const value = localStorage.getItem(key);
+  const result = value !== null ? JSON.parse(value) : null;
+  return result;
+}
+
+saveToStorage<string>("key", "value");
+loadFromStorage<string>("key");
