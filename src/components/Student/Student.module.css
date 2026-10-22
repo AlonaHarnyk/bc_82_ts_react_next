@@ -1,0 +1,29 @@
+.nameTitle {
+  font-size: 28px;
+  color: red;
+}
+
+.studentAge {
+  color: grey;
+}
+
+.course {
+  color: black;
+}
+
+.studentImage {
+  width: 40px;
+  height: 40px;
+}
+
+.online {
+  color: green;
+}
+
+.offline {
+  color: red;
+}
+
+.isOnlineText {
+  font-weight: 700;
+}
