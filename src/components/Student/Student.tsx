@@ -1,26 +1,24 @@
 import css from "./Student.module.css";
 
-import type { Student } from "../../types";
+import type { IStudent } from "../../types";
 
 interface StudentProps {
-  student: Student;
+  student: IStudent;
 }
 
-export function Student({ student }: StudentProps) {
+export function Student({
+  student: { name, age, course, avatar, isOnline },
+}: StudentProps) {
   return (
     <>
-      <h3 className={css.nameTitle}>{student.name}</h3>
-      <p className={css.studentAge}>Age: {student.age}</p>
-      <p className={css.course}>Course: {student.course}</p>
-      <img
-        className={css.studentImage}
-        src={student.avatar}
-        alt={student.name}
-      />
-      <p className={student.isOnline ? css.online : css.offline}>
-        Is online: {student.isOnline ? "yes" : "no"}
+      <h3 className={css.nameTitle}>{name}</h3>
+      <p className={css.studentAge}>Age: {age}</p>
+      <p className={css.course}>Course: {course}</p>
+      <img className={css.studentImage} src={avatar} alt={name} />
+      <p className={isOnline ? css.online : css.offline}>
+        Is online: {isOnline ? "yes" : "no"}
       </p>
-      {/* {student.isOnline && <p className={css.isOnlineText}>Is online: Yes</p>} */}
+      {/* {isOnline && <p className={css.isOnlineText}>Is online: Yes</p>} */}
     </>
   );
 }
