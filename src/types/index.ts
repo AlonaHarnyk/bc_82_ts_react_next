@@ -15,3 +15,18 @@ export interface ICourse {
   isAvailable: boolean;
   image: string;
 }
+
+export interface IDetails {
+  brand: string;
+  color: string;
+  warranty: number;
+}
+
+export interface IProduct {
+  id: number;
+  name: string;
+  price: number;
+  category: string;
+  isAvailable: boolean;
+  details: IDetails;
+}

@@ -1,9 +1,11 @@
-import { students } from '../../data';
-import { courses } from '../../data';
-import Course from '../Course/Course';
-import CoursesList from '../CoursesList/CoursesList';
+// import { students } from "../../data";
+// import { courses } from "../../data";
+import { products } from "../../data";
+// import Course from "../Course/Course";
+// import CoursesList from "../CoursesList/CoursesList";
+import { ProductList } from "../ProductList/ProductList";
 // import { Student } from "../Student/Student";
-import { StudentsList } from '../StudentsList/StudentsList';
+// import { StudentsList } from "../StudentsList/StudentsList";
 
 export function App() {
   // const student = students[0];
@@ -17,7 +19,8 @@ export function App() {
       <Student student={students[1]} /> */}
       {/* <StudentsList students={students} /> */}
       {/* <Course course={courses[0]} /> */}
-      <CoursesList courses={courses} />
+      {/* <CoursesList courses={courses} /> */}
+      <ProductList products={products} />
     </div>
   );
 }
