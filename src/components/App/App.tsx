@@ -1,0 +1,15 @@
+import { students } from "../../data";
+import { Student } from "../Student/Student";
+
+export function App() {
+  const student = students[0];
+  return (
+    <div>
+      <h3>{student.name}</h3>
+      <p>Age: {student.age}</p>
+      <p>Course: {student.course}</p>
+      <img src={student.avatar} alt={student.name} />
+      <Student />
+    </div>
+  );
+}
