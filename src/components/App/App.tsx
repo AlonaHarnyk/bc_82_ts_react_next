@@ -1,15 +1,17 @@
-import { useState } from "react";
-import { getUsers } from "../../services/usersApi";
-import Button from "../Button/Button";
-import type { User } from "../../types/users";
-import UsersList from "../UsersList/usersList";
-import ErrorMessage from "../ErrorMessage/ErrorMessage";
-import Loader from "../Loader/Loader";
+import { useState } from 'react';
+import { getUsers } from '../../services/usersApi';
+import Button from '../Button/Button';
+import type { User } from '../../types/users';
+import UsersList from '../UsersList/UsersList';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import Loader from '../Loader/Loader';
+import AddUserForm from '../AddUserForm/AddUserForm';
 
 export default function App() {
   const [users, setUsers] = useState<User[]>([]);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isFormVisible, setIsFormVisible] = useState(false);
 
   async function showUsers() {
     try {
@@ -24,6 +26,14 @@ export default function App() {
     }
   }
 
+  function onAddUserClick() {
+    setIsFormVisible(true);
+  }
+
+  function hideAddUserForm() {
+    setIsFormVisible(false);
+  }
+
   return (
     <>
       {users.length === 0 && (
@@ -32,8 +42,17 @@ export default function App() {
       <UsersList users={users} />
       {isError && <ErrorMessage />}
       {isLoading && <Loader />}
+      {isFormVisible ? (
+        <AddUserForm onFormSummit={hideAddUserForm} />
+      ) : (
+        <Button textContent="Add User" handleClick={onAddUserClick} />
+      )}
     </>
   );
 }
 
-// Створити компонент App, в якому рендерити кнопку Show users, при натисканні на яку робити запит на бекенд за адресою https://6240d2109b450ae274385b44.mockapi.io/api/users і рендерити список користувачів. Кнопка Show users має зникнути після того, як список відрендериться.
+// Cтворити форму додавання користувача (форма має містити
+// 2 текстових інпути - для введення імені та пошти). Форма має відкриватись по кнопці Add user,
+// яка має рендеритись під списком юзерів (за уиови, що останній відрендерений).
+// Коли форма відкрита, кнопка Add user має зникнути. При сабміті форми дані мають
+// виводитись в консоль, форма зникати, натомість повертатись кнопка Add user.
