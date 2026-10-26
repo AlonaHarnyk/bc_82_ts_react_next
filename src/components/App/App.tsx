@@ -6,6 +6,7 @@ import UsersList from '../UsersList/UsersList';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import Loader from '../Loader/Loader';
 import AddUserForm from '../AddUserForm/AddUserForm';
+import SearchUserForm from '../SearchUserForm/SearchUserForm';
 
 export default function App() {
   const [users, setUsers] = useState<User[]>([]);
@@ -13,7 +14,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
 
-  async function showUsers() {
+  const showUsers = async () => {
     try {
       setIsLoading(true);
       setIsError(false);
@@ -24,26 +25,44 @@ export default function App() {
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
-  function onAddUserClick() {
+  const onAddUserClick = () => {
     setIsFormVisible(true);
-  }
+  };
 
-  function hideAddUserForm() {
+  const hideAddUserForm = () => {
     setIsFormVisible(false);
-  }
+  };
+
+  const searchUsers = async (query: string) => {
+    try {
+      setIsError(false);
+      setIsLoading(true);
+      const users = await getUsers(query);
+      setUsers(users);
+    } catch {
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
-      {users.length === 0 && (
+      {users.length === 0 ? (
         <Button textContent="Show users" handleClick={showUsers} />
+      ) : (
+        <>
+          <SearchUserForm onSearh={searchUsers} />
+          <UsersList users={users} />
+        </>
       )}
-      <UsersList users={users} />
+
       {isError && <ErrorMessage />}
       {isLoading && <Loader />}
       {isFormVisible ? (
-        <AddUserForm onFormSummit={hideAddUserForm} />
+        <AddUserForm onFormSubmit={hideAddUserForm} />
       ) : (
         <Button textContent="Add User" handleClick={onAddUserClick} />
       )}

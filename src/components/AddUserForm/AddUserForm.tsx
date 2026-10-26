@@ -1,10 +1,10 @@
 import { useId } from 'react';
 
 interface AddUserFormProps {
-  onFormSummit: () => void;
+  onFormSubmit: () => void;
 }
 
-export default function AddUserForm({ onFormSummit }: AddUserFormProps) {
+export default function AddUserForm({ onFormSubmit }: AddUserFormProps) {
   const id = useId();
   // function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
   //   event.preventDefault();
@@ -14,7 +14,7 @@ export default function AddUserForm({ onFormSummit }: AddUserFormProps) {
   // }
   function handleSubmit(data: FormData) {
     console.log(data);
-    onFormSummit();
+    onFormSubmit();
   }
   return (
     //<form onSubmit={handleSubmit}>
