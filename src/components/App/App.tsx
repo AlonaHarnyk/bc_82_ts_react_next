@@ -5,6 +5,7 @@ import BooksList from "../BooksList/BooksList";
 import ErrorNotification from "../ErrorNotification/ErrorNotification";
 import Loader from "../Loader/Loader";
 import Modal from "../Modal/Modal";
+import Users from "../Users/Users";
 
 export default function App() {
   const [books, setBooks] = useState<Book[]>([]);
@@ -38,14 +39,15 @@ export default function App() {
 
   return (
     <>
-      <BooksList onOpenModal={openModal} books={books} />
+      {/* <BooksList onOpenModal={openModal} books={books} />
       {isLoading && <Loader />}
       {isError && <ErrorNotification message="Something went wrong" />}
       {description && description.length > 0 && (
         <Modal onClose={closeModal}>
           <p>{description}</p>
         </Modal>
-      )}
+      )} */}
+      <Users />
     </>
   );
 }
