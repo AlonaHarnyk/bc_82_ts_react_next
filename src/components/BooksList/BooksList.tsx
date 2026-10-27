@@ -3,8 +3,9 @@ import Button from "../Button/Button";
 
 interface BooksListProps {
   books: Book[];
+  onOpenModal: (description: string) => void;
 }
-export default function BooksList({ books }: BooksListProps) {
+export default function BooksList({ books, onOpenModal }: BooksListProps) {
   return (
     <ul>
       {books.map((book) => (
@@ -12,7 +13,10 @@ export default function BooksList({ books }: BooksListProps) {
           <h3>{book.title}</h3>
           <p>{book.author}</p>
           <p>{book.year}</p>
-          <Button textContent="View description" />
+          <Button
+            handleClick={() => onOpenModal(book.description)}
+            textContent="View description"
+          />
         </li>
       ))}
     </ul>

@@ -10,6 +10,7 @@ export default function App() {
   const [books, setBooks] = useState<Book[]>([]);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     async function fetchBooks() {
@@ -27,18 +28,24 @@ export default function App() {
     fetchBooks();
   }, []);
 
-  const openModal = (description: string) => {};
+  const openModal = (description: string) => {
+    setDescription(description);
+  };
+
+  const closeModal = () => {
+    setDescription("");
+  };
 
   return (
     <>
-      <BooksList books={books} />
+      <BooksList onOpenModal={openModal} books={books} />
       {isLoading && <Loader />}
       {isError && <ErrorNotification message="Something went wrong" />}
-      <Modal>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, quod?
-        </p>
-      </Modal>
+      {description && description.length > 0 && (
+        <Modal onClose={closeModal}>
+          <p>{description}</p>
+        </Modal>
+      )}
     </>
   );
 }
