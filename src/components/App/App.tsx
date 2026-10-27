@@ -1,77 +1,39 @@
-import { useState } from 'react';
-import { getUsers } from '../../services/usersApi';
-import Button from '../Button/Button';
-import type { User } from '../../types/users';
-import UsersList from '../UsersList/UsersList';
-import ErrorMessage from '../ErrorMessage/ErrorMessage';
-import Loader from '../Loader/Loader';
-import AddUserForm from '../AddUserForm/AddUserForm';
-import SearchUserForm from '../SearchUserForm/SearchUserForm';
+import { useEffect, useState } from 'react';
+import { getBooks } from '../../services/booksApi';
+import type { Book } from '../../types/book';
+import BooksList from '../BooksList/BooksList';
+import Loader from '../Loader/loader';
+import ErrorNotification from '../ErrorNotification/ErrorNotification';
 
 export default function App() {
-  const [users, setUsers] = useState<User[]>([]);
+  const [books, setBooks] = useState<Book[]>([]);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isFormVisible, setIsFormVisible] = useState(false);
 
-  const showUsers = async () => {
-    try {
-      setIsLoading(true);
-      setIsError(false);
-      const users = await getUsers();
-      setUsers(users);
-    } catch {
-      setIsError(true);
-    } finally {
-      setIsLoading(false);
+  useEffect(() => {
+    async function fetchBooks() {
+      try {
+        setIsError(false);
+        setIsLoading(true);
+        const books = await getBooks();
+        setBooks(books);
+      } catch {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
     }
-  };
-
-  const onAddUserClick = () => {
-    setIsFormVisible(true);
-  };
-
-  const hideAddUserForm = () => {
-    setIsFormVisible(false);
-  };
-
-  const searchUsers = async (query: string) => {
-    try {
-      setIsError(false);
-      setIsLoading(true);
-      const users = await getUsers(query);
-      setUsers(users);
-    } catch {
-      setIsError(true);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    fetchBooks();
+  }, []);
 
   return (
     <>
-      {users.length === 0 ? (
-        <Button textContent="Show users" handleClick={showUsers} />
-      ) : (
-        <>
-          <SearchUserForm onSearh={searchUsers} />
-          <UsersList users={users} />
-        </>
-      )}
-
-      {isError && <ErrorMessage />}
+      <BooksList books={books} />
       {isLoading && <Loader />}
-      {isFormVisible ? (
-        <AddUserForm onFormSubmit={hideAddUserForm} />
-      ) : (
-        <Button textContent="Add User" handleClick={onAddUserClick} />
-      )}
+      {isError && <ErrorNotification message="Something went wrong" />}
     </>
   );
 }
 
-// Cтворити форму додавання користувача (форма має містити
-// 2 текстових інпути - для введення імені та пошти). Форма має відкриватись по кнопці Add user,
-// яка має рендеритись під списком юзерів (за уиови, що останній відрендерений).
-// Коли форма відкрита, кнопка Add user має зникнути. При сабміті форми дані мають
-// виводитись в консоль, форма зникати, натомість повертатись кнопка Add user.
+// На підставі отриманих даних відрендерити список книг.
+// Кожен елемент списку має містити інформацію про назву книги, автора, рік видання.
