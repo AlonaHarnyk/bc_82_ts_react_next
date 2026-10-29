@@ -3,8 +3,9 @@ import type { Tab } from "../../types/tabs";
 import Books from "../Books/Books";
 import Tabs from "../Tabs/Tabs";
 import Users from "../Users/Users";
+import Contacts from "../Contacts/Contacts";
 
-type TabType = "users" | "books";
+type TabType = "users" | "books" | "contacts";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<TabType>("users");
@@ -15,12 +16,21 @@ export default function App() {
       clickHandler: () => {
         setActiveTab("users");
       },
+      isActive: activeTab === "users",
     },
     {
       textContent: "Books",
       clickHandler: () => {
         setActiveTab("books");
       },
+      isActive: activeTab === "books",
+    },
+    {
+      textContent: "Contacts",
+      clickHandler: () => {
+        setActiveTab("contacts");
+      },
+      isActive: activeTab === "contacts",
     },
   ];
 
@@ -29,6 +39,7 @@ export default function App() {
       <Tabs tabs={tabsConfig} />
       {activeTab === "books" && <Books />}
       {activeTab === "users" && <Users />}
+      {activeTab === "contacts" && <Contacts />}
     </>
   );
 }

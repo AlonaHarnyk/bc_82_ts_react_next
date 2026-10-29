@@ -1,0 +1,7 @@
+.tab {
+  background-color: blue;
+}
+
+.activeTab {
+  background-color: red;
+}
