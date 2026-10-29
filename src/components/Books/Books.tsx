@@ -1,21 +1,23 @@
-import { useQuery } from "@tanstack/react-query";
-import { getBooks } from "../../services/booksApi";
-import BooksList from "../BooksList/BooksList";
-import ErrorNotification from "../ErrorNotification/ErrorNotification";
-import Loader from "../Loader/Loader";
-import Modal from "../Modal/Modal";
-import { useState } from "react";
+import { useQuery } from '@tanstack/react-query';
+import { getBooks } from '../../services/booksApi';
+import BooksList from '../BooksList/BooksList';
+import ErrorNotification from '../ErrorNotification/ErrorNotification';
+import Loader from '../Loader/Loader';
+import Modal from '../Modal/Modal';
+import { useState } from 'react';
+import SearchBooks from '../SearchBooks/SearchBooks';
 
 export default function Books() {
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const {
     data: books,
     isError,
     isLoading,
   } = useQuery({
-    queryKey: ["books"],
-    queryFn: getBooks,
+    queryKey: ['books', searchQuery],
+    queryFn: () => getBooks(searchQuery),
   });
 
   const openModal = (description: string) => {
@@ -23,11 +25,16 @@ export default function Books() {
   };
 
   const closeModal = () => {
-    setDescription("");
+    setDescription('');
+  };
+
+  const searchBooks = (query: string) => {
+    setSearchQuery(query);
   };
 
   return (
     <>
+      <SearchBooks onSearch={searchBooks} />
       {books && books.length > 0 && (
         <BooksList onOpenModal={openModal} books={books} />
       )}

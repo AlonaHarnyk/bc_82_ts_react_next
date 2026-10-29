@@ -1,31 +1,37 @@
-import { useEffect, useState } from "react";
-import getUsers from "../../services/usersApi";
-import type { User } from "../../types/user";
-import Button from "../Button/Button";
-import UsersList from "../UsersList/UsersList";
+import { useState } from 'react';
+import getUsers from '../../services/usersApi';
+import Button from '../Button/Button';
+import UsersList from '../UsersList/UsersList';
+import { useQuery } from '@tanstack/react-query';
+import ErrorNotification from '../ErrorNotification/ErrorNotification';
+import Loader from '../Loader/Loader';
 
 export default function Users() {
   const [isUsersVisible, setIsUsersVisible] = useState(false);
-  const [users, setUsers] = useState<User[]>([]);
 
-  useEffect(() => {
-    async function fetchUsers() {
-      const users = await getUsers();
-      setUsers(users);
-    }
-
-    if (isUsersVisible) {
-      fetchUsers();
-    }
-  }, [isUsersVisible]);
+  const {
+    data: users,
+    isError,
+    isLoading,
+  } = useQuery({
+    queryKey: ['Users'],
+    queryFn: getUsers,
+    enabled: isUsersVisible,
+  });
 
   return (
     <>
       <Button
         handleClick={() => setIsUsersVisible(!isUsersVisible)}
-        textContent={isUsersVisible ? "Hide users" : "Show users"}
+        textContent={isUsersVisible ? 'Hide users' : 'Show users'}
       />
-      {isUsersVisible && <UsersList users={users} />}
+      {isUsersVisible && users && users.length > 0 && (
+        <UsersList users={users} />
+      )}
+      {isError && (
+        <ErrorNotification message="Something went wrong during loading" />
+      )}
+      {isLoading && <Loader />}
     </>
   );
 }
