@@ -1,0 +1,13 @@
+.pagination {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  list-style: none;
+  align-items: center;
+}
+.active {
+  color: red;
+  font-weight: 700;
+  background-color: blanchedalmond;
+  padding: 10px;
+}

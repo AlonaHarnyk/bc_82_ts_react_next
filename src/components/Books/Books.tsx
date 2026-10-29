@@ -6,18 +6,20 @@ import Loader from '../Loader/Loader';
 import Modal from '../Modal/Modal';
 import { useState } from 'react';
 import SearchBooks from '../SearchBooks/SearchBooks';
+import Pagination from '../Pagination/Pagination';
 
 export default function Books() {
   const [description, setDescription] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
 
   const {
     data: books,
     isError,
     isLoading,
   } = useQuery({
-    queryKey: ['books', searchQuery],
-    queryFn: () => getBooks(searchQuery),
+    queryKey: ['books', searchQuery, currentPage],
+    queryFn: () => getBooks(searchQuery, currentPage),
   });
 
   const openModal = (description: string) => {
@@ -30,14 +32,25 @@ export default function Books() {
 
   const searchBooks = (query: string) => {
     setSearchQuery(query);
+    setCurrentPage(1);
+  };
+
+  const changeCurrentPage = (page: number) => {
+    setCurrentPage(page);
   };
 
   return (
     <>
       <SearchBooks onSearch={searchBooks} />
+      <Pagination
+        totalPages={6}
+        currentPage={currentPage}
+        onPageChange={changeCurrentPage}
+      />
       {books && books.length > 0 && (
         <BooksList onOpenModal={openModal} books={books} />
       )}
+
       {isLoading && <Loader />}
       {isError && <ErrorNotification message="Something went wrong" />}
       {description && description.length > 0 && (
