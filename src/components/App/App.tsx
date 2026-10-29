@@ -1,55 +1,34 @@
-import { useEffect, useState } from "react";
-import { getBooks } from "../../services/booksApi";
-import type { Book } from "../../types/book";
-import BooksList from "../BooksList/BooksList";
-import ErrorNotification from "../ErrorNotification/ErrorNotification";
-import Loader from "../Loader/Loader";
-import Modal from "../Modal/Modal";
+import { useState } from "react";
+import type { Tab } from "../../types/tabs";
+import Books from "../Books/Books";
+import Tabs from "../Tabs/Tabs";
 import Users from "../Users/Users";
 
+type TabType = "users" | "books";
+
 export default function App() {
-  const [books, setBooks] = useState<Book[]>([]);
-  const [isError, setIsError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [description, setDescription] = useState("");
+  const [activeTab, setActiveTab] = useState<TabType>("users");
 
-  useEffect(() => {
-    async function fetchBooks() {
-      try {
-        setIsError(false);
-        setIsLoading(true);
-        const books = await getBooks();
-        setBooks(books);
-      } catch {
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchBooks();
-  }, []);
-
-  const openModal = (description: string) => {
-    setDescription(description);
-  };
-
-  const closeModal = () => {
-    setDescription("");
-  };
+  const tabsConfig: Tab[] = [
+    {
+      textContent: "Users",
+      clickHandler: () => {
+        setActiveTab("users");
+      },
+    },
+    {
+      textContent: "Books",
+      clickHandler: () => {
+        setActiveTab("books");
+      },
+    },
+  ];
 
   return (
     <>
-      {/* <BooksList onOpenModal={openModal} books={books} />
-      {isLoading && <Loader />}
-      {isError && <ErrorNotification message="Something went wrong" />}
-      {description && description.length > 0 && (
-        <Modal onClose={closeModal}>
-          <p>{description}</p>
-        </Modal>
-      )} */}
-      <Users />
+      <Tabs tabs={tabsConfig} />
+      {activeTab === "books" && <Books />}
+      {activeTab === "users" && <Users />}
     </>
   );
 }
-
-// До кожного елемента списку додати кнопку View description, при натисканні на яку має відкриватись модальне вікно з описом, яка має закриватись кпопкою Close, клавішею Esc, а також клікои по бекдропу
