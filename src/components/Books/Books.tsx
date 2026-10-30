@@ -1,24 +1,27 @@
-import { useQuery } from '@tanstack/react-query';
-import { getBooks } from '../../services/booksApi';
-import BooksList from '../BooksList/BooksList';
-import ErrorNotification from '../ErrorNotification/ErrorNotification';
-import Loader from '../Loader/Loader';
-import Modal from '../Modal/Modal';
-import { useState } from 'react';
-import SearchBooks from '../SearchBooks/SearchBooks';
-import Pagination from '../Pagination/Pagination';
+import { useQuery } from "@tanstack/react-query";
+import { getBooks } from "../../services/booksApi";
+import BooksList from "../BooksList/BooksList";
+import ErrorNotification from "../ErrorNotification/ErrorNotification";
+import Loader from "../Loader/Loader";
+import Modal from "../Modal/Modal";
+import { useState } from "react";
+import SearchBooks from "../SearchBooks/SearchBooks";
+import Pagination from "../Pagination/Pagination";
+import AddBookForm from "../AddBookForm/AddBookForm";
+import Button from "../Button/Button";
 
 export default function Books() {
-  const [description, setDescription] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [description, setDescription] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [isFormVisible, setIsFormVisible] = useState(false);
 
   const {
     data: books,
     isError,
     isLoading,
   } = useQuery({
-    queryKey: ['books', searchQuery, currentPage],
+    queryKey: ["books", searchQuery, currentPage],
     queryFn: () => getBooks(searchQuery, currentPage),
   });
 
@@ -27,7 +30,7 @@ export default function Books() {
   };
 
   const closeModal = () => {
-    setDescription('');
+    setDescription("");
   };
 
   const searchBooks = (query: string) => {
@@ -37,6 +40,14 @@ export default function Books() {
 
   const changeCurrentPage = (page: number) => {
     setCurrentPage(page);
+  };
+
+  const openForm = () => {
+    setIsFormVisible(true);
+  };
+
+  const closeForm = () => {
+    setIsFormVisible(false);
   };
 
   return (
@@ -58,6 +69,8 @@ export default function Books() {
           <p>{description}</p>
         </Modal>
       )}
+      <Button textContent="Open form" handleClick={openForm} />
+      {isFormVisible && <AddBookForm closeForm={closeForm} />}
     </>
   );
 }
