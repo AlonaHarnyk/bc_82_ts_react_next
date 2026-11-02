@@ -1,5 +1,7 @@
-import * as Yup from "yup";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ErrorMessage, Field, Form, Formik, type FormikHelpers } from "formik";
+import * as Yup from "yup";
+import { addBook } from "../../services/booksApi";
 import css from "./AddBookForm.module.css";
 
 interface FormValues {
@@ -28,11 +30,22 @@ interface CloseFormProps {
 }
 
 export default function AddBookForm({ closeForm }: CloseFormProps) {
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: addBook,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["books"],
+      });
+    },
+  });
+
   const handleBookForm = (
     values: FormValues,
     actions: FormikHelpers<FormValues>,
   ) => {
-    console.log(values);
+    mutate(values);
     actions.resetForm();
     closeForm();
   };

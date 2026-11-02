@@ -54,7 +54,7 @@ export default function Books() {
     <>
       <SearchBooks onSearch={searchBooks} />
       <Pagination
-        totalPages={6}
+        totalPages={7}
         currentPage={currentPage}
         onPageChange={changeCurrentPage}
       />
