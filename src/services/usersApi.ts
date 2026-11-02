@@ -14,3 +14,8 @@ export async function createUser(userData: UserData): Promise<User> {
   const { data } = await usersApi.post<User>("/users", userData);
   return data;
 }
+
+export async function deleteUser(id: string): Promise<User> {
+  const { data } = await usersApi.delete<User>(`/users/${id}`);
+  return data;
+}
