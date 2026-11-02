@@ -8,14 +8,14 @@ interface UpdateBookFormProps {
   book: Book;
 }
 
-export default function UpdateBookForm({ book }: UpdateBookFormProps) {
-  const initialValues = {
-    title: book.title,
-    author: book.author,
-    year: book.year,
-    description: book.description,
-  };
+interface FormValues {
+  author: string;
+  title: string;
+  year: number;
+  description: string;
+}
 
+export default function UpdateBookForm({ book }: UpdateBookFormProps) {
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: updateBook,
@@ -26,7 +26,14 @@ export default function UpdateBookForm({ book }: UpdateBookFormProps) {
     },
   });
 
-  const handleSubmit = (values: BookData) => {
+  const initialValues = {
+    title: book.title,
+    author: book.author,
+    year: book.year,
+    description: book.description,
+  };
+
+  const handleSubmit = (values: FormValues) => {
     mutate({ ...values, id: book.id });
   };
 
