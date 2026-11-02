@@ -1,5 +1,5 @@
 import { useState } from "react";
-import getUsers from "../../services/usersApi";
+import { getUsers } from "../../services/usersApi";
 import Button from "../Button/Button";
 import UsersList from "../UsersList/UsersList";
 import { useQuery } from "@tanstack/react-query";
@@ -15,7 +15,7 @@ export default function Users() {
     isError,
     isLoading,
   } = useQuery({
-    queryKey: ["Users"],
+    queryKey: ["users"],
     queryFn: getUsers,
     enabled: isUsersVisible,
   });

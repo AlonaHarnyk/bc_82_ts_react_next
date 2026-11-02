@@ -2,19 +2,21 @@ import { ErrorMessage, Field, Form, Formik, type FormikHelpers } from "formik";
 import { useId } from "react";
 import * as Yup from "yup";
 import css from "./AddUserForm.module.css";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createUser } from "../../services/usersApi";
 
 interface FormValues {
-  username: string;
+  name: string;
   email: string;
 }
 
 const initialValues: FormValues = {
-  username: "",
+  name: "",
   email: "",
 };
 
 const formValuesSchema = Yup.object().shape({
-  username: Yup.string()
+  name: Yup.string()
     .min(2, "Minimum length is 2 characters")
     .required("Is required"),
   email: Yup.string()
@@ -23,11 +25,22 @@ const formValuesSchema = Yup.object().shape({
 });
 
 export default function AddUserForm() {
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: createUser,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["users"],
+      });
+    },
+  });
+
   function handleSubmit(
     values: FormValues,
     actions: FormikHelpers<FormValues>,
   ) {
-    console.log(values);
+    mutate({ ...values, isOnline: false });
     actions.resetForm();
   }
 
@@ -39,9 +52,9 @@ export default function AddUserForm() {
       validationSchema={formValuesSchema}
     >
       <Form>
-        <label htmlFor={`username-${id}`}>Username:</label>
-        <Field name="username" id={`username-${id}`} />
-        <ErrorMessage name="username" component="span" className={css.error} />
+        <label htmlFor={`name-${id}`}>Username:</label>
+        <Field name="name" id={`name-${id}`} />
+        <ErrorMessage name="name" component="span" className={css.error} />
 
         <label htmlFor={`email-${id}`}>Email:</label>
         <Field name="email" id={`email-${id}`} />

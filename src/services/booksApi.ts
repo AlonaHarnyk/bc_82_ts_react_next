@@ -19,7 +19,12 @@ export async function getBooks(
   return data;
 }
 
-export async function addBook(bookData: BookData) {
+export async function addBook(bookData: BookData): Promise<Book> {
   const { data } = await booksApi.post<Book>("/books", bookData);
+  return data;
+}
+
+export async function deleteBook(id: string): Promise<Book> {
+  const { data } = await booksApi.delete<Book>(`/books/${id}`);
   return data;
 }
