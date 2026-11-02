@@ -1,7 +1,8 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { Book } from "../../types/book";
-import Button from "../Button/Button";
-import { deleteBook } from "../../services/booksApi";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import type { Book } from '../../types/book';
+import Button from '../Button/Button';
+import { deleteBook } from '../../services/booksApi';
+import UpdateBookForm from '../UpdateBookForm/UpdateBookForm';
 
 interface BooksListProps {
   books: Book[];
@@ -15,7 +16,7 @@ export default function BooksList({ books, onOpenModal }: BooksListProps) {
     mutationFn: deleteBook,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["books"],
+        queryKey: ['books'],
       });
     },
   });
@@ -36,6 +37,8 @@ export default function BooksList({ books, onOpenModal }: BooksListProps) {
             textContent="View description"
           />
           <Button textContent="Delete book" handleClick={() => onDelete(id)} />
+          <Button textContent="Update book" handleClick={} />
+          {/* <UpdateBookForm /> */}
         </li>
       ))}
     </ul>

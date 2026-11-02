@@ -1,7 +1,7 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteUser } from "../../services/usersApi";
-import type { User } from "../../types/user";
-import Button from "../Button/Button";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { deleteUser, updateUser } from '../../services/usersApi';
+import type { User } from '../../types/user';
+import Button from '../Button/Button';
 
 interface UsersListProps {
   users: User[];
@@ -14,7 +14,16 @@ export default function UsersList({ users }: UsersListProps) {
     mutationFn: deleteUser,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["users"],
+        queryKey: ['users'],
+      });
+    },
+  });
+
+  const mutationStatus = useMutation({
+    mutationFn: updateUser,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['users'],
       });
     },
   });
@@ -26,8 +35,14 @@ export default function UsersList({ users }: UsersListProps) {
           <li key={id}>
             <p>{name}</p>
             <p>{email}</p>
-            <p>Is Online: {isOnline ? "Yes" : "No"}</p>
-            <Button textContent="delet user" handleClick={() => mutate(id)} />
+            <p>Is Online: {isOnline ? 'Yes' : 'No'}</p>
+            <Button textContent="Delete user" handleClick={() => mutate(id)} />
+            <Button
+              textContent="Toggle status"
+              handleClick={() =>
+                mutationStatus.mutate({ id, isOnline: !isOnline })
+              }
+            />
           </li>
         );
       })}

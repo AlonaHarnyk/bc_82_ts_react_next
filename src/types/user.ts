@@ -10,3 +10,8 @@ export interface UserData {
   email: string;
   isOnline: boolean;
 }
+
+export interface UpdateUserStatusData {
+  isOnline: boolean;
+  id: string;
+}
