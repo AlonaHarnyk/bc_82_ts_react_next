@@ -5,8 +5,19 @@ const contactsApi = axios.create({
   baseURL: "https://6240d2109b450ae274385b44.mockapi.io/api",
 });
 
-export async function getContacts(): Promise<Contact[]> {
-  const { data } = await contactsApi.get<Contact[]>("/contacts");
+export type Order = "asc" | "desc";
+
+export async function getContacts(
+  query: string,
+  order: Order,
+): Promise<Contact[]> {
+  const { data } = await contactsApi.get<Contact[]>("/contacts", {
+    params: {
+      search: query,
+      orderBy: "name",
+      order,
+    },
+  });
   return data;
 }
 
