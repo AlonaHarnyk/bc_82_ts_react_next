@@ -3,6 +3,7 @@ import type { Book } from '../../types/book';
 import Button from '../Button/Button';
 import { deleteBook } from '../../services/booksApi';
 import UpdateBookForm from '../UpdateBookForm/UpdateBookForm';
+import { useState } from 'react';
 
 interface BooksListProps {
   books: Book[];
@@ -10,6 +11,7 @@ interface BooksListProps {
 }
 
 export default function BooksList({ books, onOpenModal }: BooksListProps) {
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -27,20 +29,34 @@ export default function BooksList({ books, onOpenModal }: BooksListProps) {
 
   return (
     <ul>
-      {books.map(({ id, title, author, year, description }) => (
-        <li key={id}>
-          <h3>{title}</h3>
-          <p>{author}</p>
-          <p>{year}</p>
-          <Button
-            handleClick={() => onOpenModal(description)}
-            textContent="View description"
-          />
-          <Button textContent="Delete book" handleClick={() => onDelete(id)} />
-          <Button textContent="Update book" handleClick={} />
-          {/* <UpdateBookForm /> */}
-        </li>
-      ))}
+      {books.map(book => {
+        const { id, title, author, year, description } = book;
+        return (
+          <li key={id}>
+            <h3>{title}</h3>
+            <p>{author}</p>
+            <p>{year}</p>
+            <Button
+              handleClick={() => onOpenModal(description)}
+              textContent="View description"
+            />
+            <Button
+              textContent="Delete book"
+              handleClick={() => onDelete(id)}
+            />
+            <Button
+              textContent="Update book"
+              handleClick={() => setSelectedBook(book)}
+            />
+            {selectedBook && selectedBook.id === book.id && (
+              <UpdateBookForm
+                book={book}
+                onBookUpdate={() => setSelectedBook(null)}
+              />
+            )}
+          </li>
+        );
+      })}
     </ul>
   );
 }

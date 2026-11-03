@@ -6,6 +6,7 @@ import { updateBook } from '../../services/booksApi';
 
 interface UpdateBookFormProps {
   book: Book;
+  onCloseForm: () => void;
 }
 
 interface FormValues {
@@ -15,7 +16,10 @@ interface FormValues {
   description: string;
 }
 
-export default function UpdateBookForm({ book }: UpdateBookFormProps) {
+export default function UpdateBookForm({
+  book,
+  onCloseForm,
+}: UpdateBookFormProps) {
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: updateBook,
@@ -23,7 +27,9 @@ export default function UpdateBookForm({ book }: UpdateBookFormProps) {
       queryClient.invalidateQueries({
         queryKey: ['books'],
       });
+      onCloseForm();
     },
+    onError: () => console.log('Update error'),
   });
 
   const initialValues = {
