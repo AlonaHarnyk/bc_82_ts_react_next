@@ -1,20 +1,15 @@
 interface SearchBooksProps {
+  query: string;
   onSearch: (query: string) => void;
 }
 
-export default function SearchBooks({ onSearch }: SearchBooksProps) {
-  const handleSubmit = (data: FormData) => {
-    const query = data.get('query') as string;
-    if (query.trim().length === 0) {
-      alert('Search text can not be empty');
-      return;
-    }
-    onSearch(query);
-  };
+export default function SearchBooks({ query, onSearch }: SearchBooksProps) {
   return (
-    <form action={handleSubmit}>
-      <input type="text" name="query" />
-      <button>Search</button>
-    </form>
+    <input
+      defaultValue={query}
+      type="text"
+      name="query"
+      onChange={e => onSearch(e.target.value)}
+    />
   );
 }
