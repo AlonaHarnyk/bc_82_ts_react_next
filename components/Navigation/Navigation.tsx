@@ -1,0 +1,23 @@
+import Link from "next/link";
+import css from "./Navigation.module.css";
+
+export default function Navigation() {
+  return (
+    <nav>
+      <ul className={css.navList}>
+        <li>
+          <Link href="/contacts">Contacts</Link>
+        </li>
+        <li>
+          <Link href="/books">Books</Link>
+        </li>
+        <li>
+          <Link href="/users">Users</Link>
+        </li>
+        <li>
+          <Link href="/">Home</Link>
+        </li>
+      </ul>
+    </nav>
+  );
+}
