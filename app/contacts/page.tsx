@@ -1,8 +1,21 @@
-import ContactList from "@/components/ContactList/ContactList";
 import getContacts from "@/lib/api/contactsApi";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
+import ContactsClient from "./ContactsClient";
 
 export default async function Contacts() {
-  const contacts = await getContacts();
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: ["contacts"],
+    queryFn: getContacts,
+  });
 
-  return <ContactList contacts={contacts} />;
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ContactsClient />
+    </HydrationBoundary>
+  );
 }
