@@ -1,5 +1,5 @@
 import BookList from '@/components/BookList/BookList';
-import getBooks from '@/lib/api/booksApi';
+import { getBooks } from '@/lib/api/booksApi';
 import {
   dehydrate,
   HydrationBoundary,

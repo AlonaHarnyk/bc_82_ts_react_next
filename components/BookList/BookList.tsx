@@ -1,5 +1,6 @@
-import { Book } from "@/types/books";
-import css from "./BookList.module.css";
+import { Book } from '@/types/books';
+import css from './BookList.module.css';
+import Link from 'next/link';
 
 interface BookListProps {
   books: Book[];
@@ -11,10 +12,7 @@ export default function BookList({ books }: BookListProps) {
       {books.map(({ author, title, year, description, id }) => {
         return (
           <li key={id} className={css.booksItem}>
-            <p>{author}</p>
-            <p>{title}</p>
-            <p>{year}</p>
-            <p>{description}</p>
+            <Link href={`/books/${id}`}>{title}</Link>
           </li>
         );
       })}
