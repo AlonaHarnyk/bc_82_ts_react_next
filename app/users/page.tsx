@@ -1,4 +1,4 @@
-import getUsers from "@/lib/api/usersApi";
+import { getUsers } from "@/lib/api/usersApi";
 import {
   dehydrate,
   HydrationBoundary,

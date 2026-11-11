@@ -3,7 +3,7 @@
 import ErrorNotification from "@/components/ErrorNotification/ErrorNotification";
 import Loader from "@/components/Loader/Loader";
 import UserList from "@/components/UserList/UserList";
-import getUsers from "@/lib/api/usersApi";
+import { getUsers } from "@/lib/api/usersApi";
 import { useQuery } from "@tanstack/react-query";
 
 export default function UsersClient() {

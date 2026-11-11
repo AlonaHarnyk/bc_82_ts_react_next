@@ -1,5 +1,6 @@
 import { User } from "@/types/users";
 import css from "./UserList.module.css";
+import Link from "next/link";
 
 interface UserListProps {
   users: User[];
@@ -8,10 +9,9 @@ interface UserListProps {
 export default function UserList({ users }: UserListProps) {
   return (
     <ul>
-      {users.map(({ name, email, id }) => (
+      {users.map(({ name, id }) => (
         <li key={id} className={css.userItem}>
-          <p>{name}</p>
-          <p>{email}</p>
+          <Link href={`/users/${id}`}>{name}</Link>
         </li>
       ))}
     </ul>
