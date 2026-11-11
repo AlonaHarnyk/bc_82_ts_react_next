@@ -8,7 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 export default function BooksClient() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['books'],
-    queryFn: () => getBooks(),
+    queryFn: getBooks,
     refetchOnMount: false,
   });
 
