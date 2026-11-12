@@ -1,0 +1,9 @@
+.categoriesList {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+}
+
+.link {
+  color: green;
+}

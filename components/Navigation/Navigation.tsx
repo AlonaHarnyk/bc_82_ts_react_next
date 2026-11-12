@@ -6,7 +6,7 @@ export default function Navigation() {
     <nav>
       <ul className={css.navList}>
         <li>
-          <Link href="/contacts">Contacts</Link>
+          <Link href="/contacts/filter/all">Contacts</Link>
         </li>
         <li>
           <Link href="/books">Books</Link>
