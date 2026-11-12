@@ -4,4 +4,5 @@ export interface Book {
   year: number;
   description: string;
   id: string;
+  isRead: boolean;
 }

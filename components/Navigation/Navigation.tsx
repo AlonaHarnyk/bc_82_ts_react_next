@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import css from './Navigation.module.css';
+import Link from "next/link";
+import css from "./Navigation.module.css";
 
 export default function Navigation() {
   return (
@@ -9,7 +9,7 @@ export default function Navigation() {
           <Link href="/contacts/filter/all">Contacts</Link>
         </li>
         <li>
-          <Link href="/books">Books</Link>
+          <Link href="/books/filter/all">Books</Link>
         </li>
         <li>
           <Link href="/users/filter/all">Users</Link>

@@ -1,8 +1,8 @@
-import { Book } from '@/types/books';
-import axios from 'axios';
+import { Book } from "@/types/books";
+import axios from "axios";
 
 const booksApi = axios.create({
-  baseURL: 'https://6971cf4a32c6bacb12c49096.mockapi.io',
+  baseURL: "https://6971cf4a32c6bacb12c49096.mockapi.io",
 });
 
 interface UpdateBookBody {
@@ -12,8 +12,12 @@ interface UpdateBookBody {
   description: string;
 }
 
-export async function getBooks(): Promise<Book[]> {
-  const { data } = await booksApi.get<Book[]>('/books');
+export async function getBooks(isRead?: boolean): Promise<Book[]> {
+  const { data } = await booksApi.get<Book[]>("/books", {
+    params: {
+      isRead,
+    },
+  });
   return data;
 }
 

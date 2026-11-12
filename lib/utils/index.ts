@@ -1,9 +1,9 @@
 export const getCategoriesParam = (param: string) => {
   switch (param) {
-    case 'with-work':
+    case "with-work":
       return true;
 
-    case 'without-work':
+    case "without-work":
       return false;
 
     default:
@@ -13,10 +13,23 @@ export const getCategoriesParam = (param: string) => {
 
 export const getUsersCategoriesParam = (param: string) => {
   switch (param) {
-    case 'is-online':
+    case "is-online":
       return true;
 
-    case 'is-offline':
+    case "is-offline":
+      return false;
+
+    default:
+      return undefined;
+  }
+};
+
+export const getBooksCategoriesParam = (param: string) => {
+  switch (param) {
+    case "read":
+      return true;
+
+    case "unread":
       return false;
 
     default:
