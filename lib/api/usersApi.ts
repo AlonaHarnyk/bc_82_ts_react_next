@@ -1,12 +1,16 @@
-import { User } from "@/types/users";
-import axios from "axios";
+import { User } from '@/types/users';
+import axios from 'axios';
 
 const usersApi = axios.create({
-  baseURL: "https://6240d2109b450ae274385b44.mockapi.io/api",
+  baseURL: 'https://6240d2109b450ae274385b44.mockapi.io/api',
 });
 
-export async function getUsers(): Promise<User[]> {
-  const { data } = await usersApi.get<User[]>("/users");
+export async function getUsers(isOnline?: boolean): Promise<User[]> {
+  const { data } = await usersApi.get<User[]>('/users', {
+    params: {
+      isOnline,
+    },
+  });
   return data;
 }
 

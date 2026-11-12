@@ -2,7 +2,6 @@ import { Book } from '@/types/books';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import css from './EditBookForm.module.css';
-import UsersClient from '@/app/users/UsersClient';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateBook } from '@/lib/api/booksApi';
 
