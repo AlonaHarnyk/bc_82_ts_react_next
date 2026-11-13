@@ -28,8 +28,14 @@ export default function Modal({ children }: ModalProps) {
     router.back();
   };
 
+  const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === event.currentTarget) {
+      router.back();
+    }
+  };
+
   return (
-    <div className={css.backdrop}>
+    <div className={css.backdrop} onClick={handleBackdropClick}>
       <div className={css.modal}>
         {children}
         <button onClick={handleBackButton} className={css.backBtn}>

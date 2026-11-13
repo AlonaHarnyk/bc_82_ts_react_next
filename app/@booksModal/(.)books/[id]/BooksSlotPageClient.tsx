@@ -1,0 +1,32 @@
+"use client";
+import BookDetails from "@/components/BookDetails/BookDetails";
+import ErrorNotification from "@/components/ErrorNotification/ErrorNotification";
+import Loader from "@/components/Loader/Loader";
+import Modal from "@/components/Modal/Modal";
+import { getSingleBook } from "@/lib/api/booksApi";
+import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+
+import css from "./BooksSlotPageClient.module.css";
+
+export default function BookSlotPageClient() {
+  const { id } = useParams<{ id: string }>();
+
+  const {
+    data: book,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["singleBook", id],
+    queryFn: () => getSingleBook(id),
+  });
+
+  return (
+    <Modal>
+      {isError && <ErrorNotification />}
+      {isLoading && <Loader />}
+      {book && <BookDetails book={book} />}
+    </Modal>
+  );
+}
