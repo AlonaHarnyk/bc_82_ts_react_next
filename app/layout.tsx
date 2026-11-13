@@ -1,6 +1,7 @@
-import Header from "@/components/Header/Header";
-import "./globals.css";
-import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
+import Header from '@/components/Header/Header';
+import './globals.css';
+import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
+import css from './layout.module.css';
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -12,9 +13,11 @@ export default function RootLayout({ children, booksModal }: RootLayoutProps) {
     <html lang="en">
       <body>
         <TanStackProvider>
-          <Header />
-          {children}
-          {booksModal}
+          <div className={css.container}>
+            <Header />
+            {children}
+            {booksModal}
+          </div>
         </TanStackProvider>
       </body>
     </html>
