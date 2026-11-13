@@ -5,10 +5,7 @@ import Loader from "@/components/Loader/Loader";
 import Modal from "@/components/Modal/Modal";
 import { getSingleBook } from "@/lib/api/booksApi";
 import { useQuery } from "@tanstack/react-query";
-import Link from "next/link";
 import { useParams } from "next/navigation";
-
-import css from "./BooksSlotPageClient.module.css";
 
 export default function BookSlotPageClient() {
   const { id } = useParams<{ id: string }>();
