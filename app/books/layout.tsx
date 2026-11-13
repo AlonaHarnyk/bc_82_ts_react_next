@@ -1,13 +1,15 @@
-import BooksCategories from "@/components/BooksCategories/BooksCategories";
-
 interface BooksLayoutProps {
   children: React.ReactNode;
+  booksSideBar: React.ReactNode;
 }
 
-export default function BooksLayout({ children }: BooksLayoutProps) {
+export default function BooksLayout({
+  children,
+  booksSideBar,
+}: BooksLayoutProps) {
   return (
     <>
-      <BooksCategories />
+      {booksSideBar}
       {children}
     </>
   );

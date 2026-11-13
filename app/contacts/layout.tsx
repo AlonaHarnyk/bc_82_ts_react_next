@@ -1,13 +1,15 @@
-import ContactsCategories from "@/components/ContactsCategories/ContactsCategories";
-
 interface ContactsLayoutProps {
   children: React.ReactNode;
+  contactsSideBar: React.ReactNode;
 }
 
-export default function ContactsLayout({ children }: ContactsLayoutProps) {
+export default function ContactsLayout({
+  children,
+  contactsSideBar,
+}: ContactsLayoutProps) {
   return (
     <>
-      <ContactsCategories />
+      {contactsSideBar}
       {children}
     </>
   );

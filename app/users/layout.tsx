@@ -1,13 +1,15 @@
-import UsersCategories from '@/components/UsersCategories/UsersCategories';
-
 interface UsersLayoutProps {
   children: React.ReactNode;
+  usersSideBar: React.ReactNode;
 }
 
-export default function UsersLayout({ children }: UsersLayoutProps) {
+export default function UsersLayout({
+  children,
+  usersSideBar,
+}: UsersLayoutProps) {
   return (
     <div>
-      <UsersCategories />
+      {usersSideBar}
       {children}
     </div>
   );
