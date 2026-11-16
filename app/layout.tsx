@@ -3,6 +3,13 @@ import "./globals.css";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import css from "./layout.module.css";
 import { Metadata } from "next";
+import { Roboto } from "next/font/google";
+
+export const roboto = Roboto({
+  variable: "--roboto-font",
+  weight: ["400", "700"],
+  subsets: ["latin"],
+});
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -30,7 +37,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children, booksModal }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body>
+      <body className={roboto.variable}>
         <TanStackProvider>
           <div className={css.container}>
             <Header />
