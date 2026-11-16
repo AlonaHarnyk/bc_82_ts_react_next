@@ -6,6 +6,7 @@ import Loader from "@/components/Loader/Loader";
 import { getBooks } from "@/lib/api/booksApi";
 import { getBooksCategoriesParam } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 
 export default function BooksFilterPageClient() {
@@ -24,6 +25,7 @@ export default function BooksFilterPageClient() {
 
   return (
     <>
+      <Link href="/create-book">Create Book</Link>
       {isError && <ErrorNotification />}
       {isLoading && <Loader />}
       {books && <BookList books={books} />}

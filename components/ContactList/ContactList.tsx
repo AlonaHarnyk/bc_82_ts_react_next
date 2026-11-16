@@ -1,6 +1,6 @@
-import Contact from '@/types/contacts';
-import css from './ContactList.module.css';
-import Link from 'next/link';
+import Contact from "@/types/contacts";
+import css from "./ContactList.module.css";
+import Link from "next/link";
 
 interface ContactListProps {
   contacts: Contact[];
@@ -12,7 +12,7 @@ export default function ContactList({ contacts }: ContactListProps) {
       {contacts.map(({ name, id }) => {
         return (
           <li key={id} className={css.contactsItem}>
-            <Link href={`/contacts/${id}`}>{name}</Link>
+            <Link href={`/contactDetails/${id}`}>{name}</Link>
           </li>
         );
       })}
