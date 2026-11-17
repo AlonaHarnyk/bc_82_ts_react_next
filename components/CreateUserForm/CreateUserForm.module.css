@@ -1,0 +1,17 @@
+.error {
+  color: red;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 300px;
+  margin-top: 30px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
