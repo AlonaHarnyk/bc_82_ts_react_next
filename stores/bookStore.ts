@@ -36,7 +36,7 @@ export const useBookStore = create<BookStore>()(
     },
     {
       name: 'book',
-      partialize: store => store.draft,
+      partialize: store => ({ draft: store.draft }),
     }
   )
 );
