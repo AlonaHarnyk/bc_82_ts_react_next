@@ -6,6 +6,7 @@ import Loader from "@/components/Loader/Loader";
 import { getContacts } from "@/lib/api/contactsApi";
 import { getCategoriesParam } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 
 export default function ContactsPageClient() {
@@ -20,6 +21,7 @@ export default function ContactsPageClient() {
 
   return (
     <>
+      <Link href="/create-contact">Create contact</Link>
       {isError && <ErrorNotification />}
       {isLoading && <Loader />}
       {data && <ContactList contacts={data} />}

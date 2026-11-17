@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface BookStoreData {
   author: string;
@@ -15,28 +15,28 @@ interface BookStore {
 }
 
 const initialBookDraft: BookStoreData = {
-  author: '',
-  title: '',
-  year: '',
-  description: '',
+  author: "",
+  title: "",
+  year: "",
+  description: "",
 };
 
 export const useBookStore = create<BookStore>()(
   persist(
-    set => {
+    (set) => {
       return {
         draft: initialBookDraft,
-        setDraft: draft => {
-          set(() => ({ draft }));
+        setDraft: (draft) => {
+          set({ draft });
         },
         clearDraft: () => {
-          set(() => ({ draft: initialBookDraft }));
+          set({ draft: initialBookDraft });
         },
       };
     },
     {
-      name: 'book',
-      partialize: store => ({ draft: store.draft }),
-    }
-  )
+      name: "book",
+      partialize: (store) => ({ draft: store.draft }),
+    },
+  ),
 );

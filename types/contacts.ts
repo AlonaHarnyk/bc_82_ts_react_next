@@ -1,4 +1,4 @@
-export default interface Contact {
+export interface Contact {
   createdAt: string;
   name: string;
   number: string;
@@ -11,4 +11,11 @@ export default interface Contact {
   birthDay: string; // none
   description: string;
   id: string;
+}
+
+export interface ContactData {
+  name: string;
+  city: string;
+  sex: string;
+  description: string;
 }
