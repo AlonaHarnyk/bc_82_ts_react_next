@@ -2,7 +2,7 @@ import { Book, BookData } from "@/types/books";
 import axios from "axios";
 
 const booksApi = axios.create({
-  baseURL: "https://6971cf4a32c6bacb12c49096.mockapi.io",
+  baseURL: "http://localhost:3000/api",
 });
 
 export async function getBooks(isRead?: boolean): Promise<Book[]> {
