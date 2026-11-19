@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ApiError, booksApi } from "../../booksApi";
 
-interface SingleBookProps {
+interface SingleBookParams {
   params: Promise<{ id: string }>;
 }
 
-export async function GET(_request: NextRequest, { params }: SingleBookProps) {
+export async function GET(_request: NextRequest, { params }: SingleBookParams) {
   try {
     const { id } = await params;
     const { data } = await booksApi.get(`/books/${id}`);
@@ -22,7 +22,7 @@ export async function GET(_request: NextRequest, { params }: SingleBookProps) {
   }
 }
 
-export async function PUT(request: NextRequest, { params }: SingleBookProps) {
+export async function PUT(request: NextRequest, { params }: SingleBookParams) {
   try {
     const { id } = await params;
     const body = await request.json();
