@@ -1,8 +1,8 @@
-import Contact from "@/types/contacts";
+import { Contact } from "@/types/contacts";
 import axios from "axios";
 
 const contactsApi = axios.create({
-  baseURL: "https://6240d2109b450ae274385b44.mockapi.io/api",
+  baseURL: "http://localhost:3000/api",
 });
 
 export async function getContacts(hasWork?: boolean): Promise<Contact[]> {
